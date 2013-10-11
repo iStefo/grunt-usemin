@@ -1,6 +1,6 @@
 {
   "name": "grunt-usemin",
-  "version": "0.1.12",
+  "version": "0.1.12-rev",
   "description": "Grunt task replaces references to non-optimized scripts or stylesheets into a set of HTML files (or any templates/views).",
   "keywords": [
     "gruntplugin",
@@ -10,13 +10,13 @@
     "css",
     "optimize"
   ],
-  "homepage": "https://github.com/yeoman/grunt-usemin",
-  "bugs": "https://github.com/yeoman/grunt-usemin/issues",
-  "author": "Chrome Developer Relations",
+  "homepage": "https://github.com/istefo/grunt-usemin",
+  "bugs": "https://github.com/istefo/grunt-usemin/issues",
+  "author": "Chrome Developer Relations, patch by Stefan Fochler",
   "main": "Gruntfile.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/yeoman/grunt-usemin.git"
+    "url": "git://github.com/istefo/grunt-usemin.git"
   },
   "scripts": {
     "test": "grunt"
