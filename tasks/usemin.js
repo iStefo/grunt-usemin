@@ -227,5 +227,34 @@ module.exports = function (grunt) {
       .writeln('  ' + inspect(uglify))
       .subhead('  requirejs:')
       .writeln('  ' + inspect(requirejs));
+
+    /*
+      This addition by Stefan Fochler collects all touched output files
+      (currently from the uglify task only) and updates or writes the grunt
+      config for the 'rev' task
+     */
+    var scriptsCollector = [];
+    // look at uglify task
+    Object.keys(uglify).forEach(function(path) {
+      if (scriptsCollector.indexOf(path) === -1) {
+        scriptsCollector.push(path);
+      }
+    });
+    // get current rev conf
+    var revConf = grunt.config.get('rev');
+    // provide default rev config, if none is set in the gruntfile
+    if (!revConf) {
+      revConf = {
+        main: {
+          files: []
+        }
+      };
+    }
+    // add all paths to target main
+    scriptsCollector.forEach(function(path) {
+      revConf.main.files.push({ src: path });
+    });
+    // save rev conf back again
+    grunt.config('rev', revConf);
   });
 };
