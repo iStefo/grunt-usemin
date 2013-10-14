@@ -245,7 +245,9 @@ module.exports = function (grunt) {
       .subhead('  uglify:')
       .writeln('  ' + inspect(uglify))
       .subhead('  requirejs:')
-      .writeln('  ' + inspect(requirejs));
+      .writeln('  ' + inspect(requirejs))
+      .subhead('  less:')
+      .writeln('  ' + inspect(less.main.files));
 
     /*
       This addition by Stefan Fochler collects all touched output files
