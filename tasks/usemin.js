@@ -123,6 +123,7 @@ module.exports = function (grunt) {
     var uglify = grunt.config(uglifyName) || {};
     var cssmin = grunt.config(cssminName) || {};
     var requirejs = grunt.config('requirejs') || {};
+    var less = grunt.config('less');
 
     grunt.log
       .writeln('Going through ' + grunt.log.wordlist(files) + ' to update the config')
@@ -214,6 +215,24 @@ module.exports = function (grunt) {
           cssmin[block.dest] = block.dest;
           grunt.config(cssminName, cssmin);
         }
+
+        // less config, only for less type block
+        if (block.type === 'less') {
+          // provide fallback default less config
+          if (!less) {
+            less = {
+              main: {
+                options: {
+                  yuicompress: true
+                },
+                files: {}
+              }
+            };
+          }
+          // extend config with file
+          less.main.files[block.dest] = block.dest;
+          grunt.config('less', less);
+        }
       });
     });
 
@@ -230,12 +249,18 @@ module.exports = function (grunt) {
 
     /*
       This addition by Stefan Fochler collects all touched output files
-      (currently from the uglify task only) and updates or writes the grunt
+      (currently from the uglify and less task only) and updates or writes the grunt
       config for the 'rev' task
      */
     var scriptsCollector = [];
     // look at uglify task
     Object.keys(uglify).forEach(function(path) {
+      if (scriptsCollector.indexOf(path) === -1) {
+        scriptsCollector.push(path);
+      }
+    });
+    // and less task
+    Object.keys(less.main.files).forEach(function(path) {
       if (scriptsCollector.indexOf(path) === -1) {
         scriptsCollector.push(path);
       }
